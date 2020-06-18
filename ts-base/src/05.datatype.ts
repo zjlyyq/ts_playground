@@ -10,6 +10,9 @@ let arr2: Array<number | string> = [1, 2, 3, '4']
 
 // 元组
 let tuple: [number, string] = [0, '1']
+let dir1: [number, number] = [0, 0]
+let dir2: [number, number][] = [[0, 0], [0,3]]
+console.log(dir2)
 tuple.push(2)
 console.log(tuple)
 // tuple[2]

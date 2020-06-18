@@ -1,6 +1,6 @@
-// import './05.datatype'
+import './05.datatype'
 // import './enum'
-import './interface'
+// import './interface'
 
 let hello: string = "Hello TypeScript!!!";
 document.write(hello);
