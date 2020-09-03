@@ -12,10 +12,10 @@ let arr2: Array<number | string> = [1, 2, 3, '4']
 let tuple: [number, string] = [0, '1']
 let dir1: [number, number] = [0, 0]
 let dir2: [number, number][] = [[0, 0], [0,3]]
-console.log(dir2)
+console.log('dir2', dir2)
 tuple.push(2)
-console.log(tuple)
-// tuple[2]
+console.log('tuple', tuple)
+// console.log(tuple[2]); //Tuple type '[number, string]' of length '2' has no element at index '2'
 
 // 函数
 // let add = (x: number, y: number) => x + y
@@ -25,21 +25,22 @@ console.log(compute(1, 1));
 
 // 对象
 let obj: { x: number, y: number } = { x: 1, y: 2 }
+// let obj: object = {x: 1, y: 2}
 let myObj: object = { name: "zjl", age: 24 }
-obj.x = 3
+obj.x = 3   // TS2339: Property 'x' does not exist on type 'object'.
 // myObj.age = 22
 
 // symbol
 let s1: symbol = Symbol()
 let s2 = Symbol()
-console.log(s1 === s2)
+console.log("Symbol s1 === Symbol s2",s1 === s2)
 
 // undefined, null
 let un: undefined = undefined
 let nu: null = null
 let num2: number = 0
-// num2 = undefined
-// num2 = null
+num2 = undefined
+num2 = null
 
 // void
 let noReturn = () => {}
