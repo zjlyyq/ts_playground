@@ -1,5 +1,5 @@
 import './05.datatype.ts'
-// import './enum'
+import './enum.ts'
 // import './interface'
 
 let hello: string = "Hello TypeScript!";
