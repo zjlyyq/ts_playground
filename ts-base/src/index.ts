@@ -6,5 +6,6 @@ import './12.generic'
 import './14.generic_class'
 import './15.type_check'
 import './16.type_compalite'
+import './part2.project/index'
 let hello: string = "Hello TypeScript??";
-document.write(hello);
+document.querySelectorAll('.app')[0].innerHTML = hello
