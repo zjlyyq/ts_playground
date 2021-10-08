@@ -1,8 +1,10 @@
+console.log('----------- 06. 枚举类型 start -----------');
 enum Roles {
     Guster = 1,
     User = 2,
     Administrator
 }
+console.log(`Roles.Administrator = ${Roles.Administrator}`);
 let myAge: number = Roles.Guster
 
 enum People {
@@ -38,3 +40,5 @@ switch(res.userType){
 }
 
 // 常量枚举
+
+console.log('----------- 06. 枚举类型 ended -----------');
