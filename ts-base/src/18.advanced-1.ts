@@ -55,12 +55,12 @@ let pet1: Dogg & Cat;
 pet.jump();
 
 // 联合类型
-let pet2: Dogg | Cat;
+let pet2: Dogg | Cat = new Dogg();
 pet2.eat();
 
 function getPet(master: Master) {
 
-    let pet = master === Master.Boy ? new Dog() : new Cat();
+    let pet = master === Master.Boy ? new Dogg() : new Cat();
     // pet.run()
     // pet.jump()
     // pet.eat()
