@@ -14,7 +14,7 @@ interface LogInterface<T> {
 }
 
 let logObj: LogInterface<string> = {
-    logString: "loging "
+    logString: "loging"
 }
 console.log(logObj)
 let logObj2: LogInterface<number> = {

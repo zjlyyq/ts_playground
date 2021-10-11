@@ -6,5 +6,7 @@ import './12.generic'
 import './14.generic_class'
 import './15.type_check'
 import './16.type_compalite'
+import './19.index_type'
 let hello: string = "Hello TypeScript??";
+
 document.write(hello);
