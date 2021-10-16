@@ -27,3 +27,13 @@ class LogClass<T extends Length> {
 }
 
 new LogClass().run('ddd')
+
+// 支持参数是string和number和bolean的类型的函数 —— 泛型实现
+
+function spec_14<T>(value: T): T {
+    return value;
+}
+// 支持参数是string和number和bolean的类型的函数 —— 联合类型实现
+function spec_14_2(value: boolean | string | number) {
+    return value;
+}
