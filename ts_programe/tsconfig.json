@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "target": "ES2021",
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "noEmitOnError": true,
+    "rootDir": "./src",
     "outDir": "./dist",
     "sourceMap": true
   },
