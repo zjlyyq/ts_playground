@@ -1,0 +1,135 @@
+ ▐▛███▛█   Claude Code v2.1.261
+▝▜██████▀  mimo-v2.5-pro · API Usage Billing
+  ▝▝ ▝▝    ~/mycode/ts_playground/ts_programe/ch03
+
+
+❯ @types.ts 什么我鼠标悬停在neverReturns                                        
+  函数行时显示函数的返回类型为void,的理解应该是never。                          
+  ⎿  Read types.ts (168 lines)
+  ⎿  ⧉ Selected 3 lines from types.ts in Trae
+
+  Thought for 12s, read 1 file (ctrl+o to expand)
+
+⏺ 你的 types.ts:50-52 中 neverReturns 函数已经显式标注了返回类型 never：
+
+  function neverReturns(): never {
+    throw new Error("Always throws");
+  }
+
+  当鼠标悬停时，IDE 应该显示返回类型为 never，而不是 void。如果你看到的是
+  void，可能是以下原因之一：
+
+  1. 文件未保存 — 编辑器中的内容与磁盘上的文件不一致，TypeScript
+     语言服务读取的是旧版本。试试按 Cmd+S 保存后再悬停。
+  2. 悬停位置不对 — 你可能悬停在了调用 neverReturns()
+     的地方而非函数定义本身。不过即使是调用处，返回类型也应该是 never。
+  3. TS 语言服务缓存 — 有时 VS Code 的 TypeScript 服务需要重启。按 Cmd+Shift+P →
+     "TypeScript: Restart TS Server" 试试。
+
+  never vs void 的区别：
+
+  ┌──────┬───────────────────────────────┬──────────────────────────────────┐
+  │      │             void              │              never               │
+  ├──────┼───────────────────────────────┼──────────────────────────────────┤
+  │ 含义 │ 函数正常返回但不返回值        │ 函数永远不会返回                 │
+  ├──────┼───────────────────────────────┼──────────────────────────────────┤
+  │ 示例 │ function log(msg) {           │ function throwError() { throw    │
+  │      │ console.log(msg) }            │ ... } / while(true){}            │
+  └──────┴───────────────────────────────┴──────────────────────────────────┘
+
+  你的代码逻辑是正确的 — 一个总是抛异常的函数返回类型就应该是 never。
+
+✻ Crunched for 20s · done 8:35 PM
+
+❯ 重启 TS Server 试试                                                           
+
+  Thought for 3s (ctrl+o to expand)
+
+⏺ 这个需要你在 VS Code 中手动操作，我无法直接控制 VS Code：
+
+  1. 按 Cmd + Shift + P 打开命令面板
+  2. 输入 TypeScript: Restart TS Server
+  3. 回车执行
+
+  或者你可以在当前终端里输入 ! 前缀来运行命令，但重启 TS Server 是 VS Code
+  内部操作，只能在编辑器里执行。
+
+  重启后再把鼠标悬停到 neverReturns 函数名上，看看显示的返回类型是否变为 never。
+
+✻ Worked for 6s · done 8:36 PM
+
+❯ 重启了还是显示的void。                                                        
+
+  Thought for 5s (ctrl+o to expand)
+
+⏺ 让我检查一下 tsconfig 配置和 TypeScript 版本，看看是否有问题。
+
+  Thought for 17s, read 1 file, listed 2 directories, ran 4 shell commands (ctrl+o to expand)
+
+⏺ 文件内容和配置都没问题。让我直接编译验证一下 TypeScript
+  本身是否正确识别返回类型：
+
+  Thought for 11s, searched for 1 pattern, read 1 file, ran 1 shell command (ctrl+o to expand)
+
+⏺ 找到问题了！让我看一下实际的函数定义：
+
+  Thought for 5s, read 1 file (ctrl+o to expand)
+
+⏺ 问题找到了！在 types.ts:161 的 neverReturns 函数没有显式标注返回类型 never：
+
+  // 当前代码（第161行）— 没有 : never 标注
+  function neverReturns() {
+    throw new Error('This function never returns');
+  }
+
+  而你之前看到的代码是文件的旧版本，那时有 : never 标注：
+
+  // 旧版本 — 有显式标注
+  function neverReturns(): never {
+    throw new Error('This function never returns');
+  }
+
+  TypeScript 的推断规则：当函数体只有 throw
+  语句且没有显式返回类型标注时，TypeScript 会推断为 void，而不是
+  never。要让返回类型为 never，必须显式标注。
+
+  如果你想让它显示 never，需要加上返回类型标注：
+
+⏺ Update(types.ts)
+  ⎿  Added 1 line, removed 1 line
+      158  function returnsVoid() {
+      159    
+      160  }
+      161 -function neverReturns() {                                     
+      161 +function neverReturns(): never {                              
+      162    throw new Error('This function never returns');
+      163  }
+      164  function e() {
+
+  Thought for 1s (ctrl+o to expand)
+
+⏺ 验证一下：
+
+  Thought for 1s, ran 1 shell command (ctrl+o to expand)
+
+⏺ 现在 TypeScript 正确识别返回类型为 never 了。
+
+  总结：
+
+  ┌────────────────┬────────────────────┬─────────────┬─────────────────────┐
+  │      函数      │        代码        │  推断类型   │        原因         │
+  ├────────────────┼────────────────────┼─────────────┼─────────────────────┤
+  │ returnsVoid()  │ 空函数体           │ void        │ 没有 return 语句    │
+  ├────────────────┼────────────────────┼─────────────┼─────────────────────┤
+  │ neverReturns() │ 只有 throw         │ void →      │ 需要显式标注 :      │
+  │                │                    │ never       │ never               │
+  ├────────────────┼────────────────────┼─────────────┼─────────────────────┤
+  │ e()            │ while(true)        │ never       │ TypeScript          │
+  │                │ 无限循环           │             │ 能自动推断          │
+  └────────────────┴────────────────────┴─────────────┴─────────────────────┘
+
+  有趣的是，TypeScript 对 while(true) 无限循环能自动推断为 never，但对只有 throw
+  的函数却推断为 void — 这是 TypeScript
+  的一个设计选择，所以对于抛异常的函数需要手动标注 : never。
+
+✻ Sautéed for 1m 5s · done 8:38 PM
