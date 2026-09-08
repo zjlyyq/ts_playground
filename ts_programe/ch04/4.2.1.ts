@@ -4,8 +4,8 @@ type Filter = {
 
 let filter: Filter = (arr, f) => arr.filter(f);
 
-const result = filter([1, 2, 3], item => item > 1); // [2, 3]
-console.log(result);
+const result11 = filter([1, 2, 3], item => item > 1); // [2, 3]
+console.log(result11);
 
 
 type Filter2<T> = (arr: T[], f: (item: T) => boolean) => T[];
