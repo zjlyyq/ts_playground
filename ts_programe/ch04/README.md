@@ -125,4 +125,5 @@ is([1], [1, 2], [1, 2, 3]) // false
 [4.5.ts](./4.5.ts)
 ## 疑惑点
 
+https://chat.deepseek.com/share/9gqdn20tuwy0darho2
 
