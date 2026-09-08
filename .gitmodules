@@ -1,0 +1,3 @@
+[submodule "ts_programe/submodules/programming-typescript-answers"]
+	path = ts_programe/submodules/programming-typescript-answers
+	url = https://github.com/bcherny/programming-typescript-answers.git

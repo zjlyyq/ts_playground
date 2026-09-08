@@ -85,7 +85,7 @@ catOrDogOrBoth = { name: 'Felix', purrs: true, barks: true, wags: true };
 // catOrDogOrBoth.purrs;  // 不能直接访问，因为并集类型中可能包含 Dog 类型，而 Dog 类型中没有 purrs 属性
 // catOrDogOrBoth.barks;
 // catOrDogOrBoth.wags;
-if ( 'purrs' in catOrDogOrBoth ) {
+if ('purrs' in catOrDogOrBoth) {
   catOrDogOrBoth.purrs;
 }
 
@@ -100,9 +100,9 @@ cat.wags;
 const arr1: number[] = [1, 2, 3];
 const arr2: (number | string)[] = [1, 'hello', 2];
 
-const arr3 =arr2.map(item => {
+const arr3 = arr2.map((item) => {
   // 类型守卫
-  if ( typeof item === 'number' ) {
+  if (typeof item === 'number') {
     return item * 3;
   }
   return item.repeat(3);
@@ -110,28 +110,20 @@ const arr3 =arr2.map(item => {
 console.log(arr3);
 
 // tuple 类型: 固定长度的数组，每个元素的类型可以不同, 但是必须按顺序赋值, 必须显示定义，否则会推断出数组。
-const tuple1: [number, string, boolean] = [1, 'hello', true]; // 
-const arr5 = [1, 'hello', true];  // 类型为 number | string | boolean[]
+const tuple1: [number, string, boolean] = [1, 'hello', true]; //
+const arr5 = [1, 'hello', true]; // 类型为 number | string | boolean[]
 
-console.log(typeof tuple1);  // object
+console.log(typeof tuple1); // object
 
 // 元组支持可选
 // 火车票价格，不同方向价格可能不同
-const trainFares: [number, number?][] = [
-  [3.75],
-  [28.22, 30.10],
-  [3.4, 2.8],
-];
+const trainFares: [number, number?][] = [[3.75], [28.22, 30.1], [3.4, 2.8]];
 
-let moreTrainFares: ([number] | [number, number])[] = [
-  [3.75],
-  [28.22, 30.10],
-  [3.4, 2.8],
-];
-let f1 = moreTrainFares[0][0];  // 类型为 number
+let moreTrainFares: ([number] | [number, number])[] = [[3.75], [28.22, 30.1], [3.4, 2.8]];
+let f1 = moreTrainFares[0][0]; // 类型为 number
 
-let f11 = trainFares[0][0];  // 类型为 number
-let f12 = trainFares[0][1];  // 类型为 number | undefined
+let f11 = trainFares[0][0]; // 类型为 number
+let f12 = trainFares[0][1]; // 类型为 number | undefined
 
 /**
  不能将类型“[number, (number | undefined)?][]”分配给类型“([number] | [number, number])[]”。
@@ -148,16 +140,13 @@ let anotherTrainFares: [number, (number | undefined)?][] = trainFares;
 
 // undefined null void never
 
-
 function returnsNull() {
   return null;
 }
 function returnsUndefined() {
   return undefined;
 }
-function returnsVoid() {
-  
-}
+function returnsVoid() {}
 function neverReturns(): never {
   throw new Error('This function never returns');
 }
@@ -192,6 +181,6 @@ const enum Lang2 {
   Chinese,
 }
 // lang_d = Lang2[0]; // 只有使用字符串文本才能访问常数枚举成员。
-lang_d = Lang2["0"]; // 不存在，但ts允许访问
+lang_d = Lang2['0']; // 不存在，但ts允许访问
 // lang_d = Lang2.English; // 不能将类型“Lang2”分配给类型“string”。
 console.log(lang_d); // undefined
