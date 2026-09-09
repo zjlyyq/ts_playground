@@ -1,19 +1,19 @@
-type Shoe = {
+export type Shoe = {
   purpose: string;
 };
 
 // 芭蕾平底鞋
-class BalletFlat implements Shoe {
+export class BalletFlat implements Shoe {
   purpose: string = 'dancing';
 }
 
 // 靴子
-class Boot implements Shoe {
+export class Boot implements Shoe {
   purpose: string = 'wooductting'; // 伐木
 }
 
 // 运动鞋
-class Sneaker implements Shoe {
+export class Sneaker implements Shoe {
   purpose: string = 'walking';
 }
 
@@ -29,3 +29,6 @@ let Shoe = {
     }
   },
 };
+
+let shoe = Shoe.create('balletFlat');
+console.log(shoe);

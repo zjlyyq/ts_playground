@@ -1,4 +1,4 @@
-class RequestBuilder {
+export class RequestBuilder {
   private url: string | null = null;
   private method: 'get' | 'post' | 'put' | 'delete' | null = null;
   private data: object | null = null;
@@ -16,6 +16,10 @@ class RequestBuilder {
   setData(data: object): this {
     this.data = data;
     return this;
+  }
+
+  send(): void {
+    console.log('send request');
   }
 }
 

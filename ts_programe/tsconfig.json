@@ -16,5 +16,5 @@
     "strictBindCallApply": false
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "dist", "submodules"]
+  "exclude": ["node_modules", "dist", "submodules/**/*"]
 }
