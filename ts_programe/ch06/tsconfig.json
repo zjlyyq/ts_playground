@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "strict": false,  // 关闭严格模式, 防止很多特性被隐藏, 例如: 类型拓宽
+    "noImplicitReturns": true
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"]
+}
