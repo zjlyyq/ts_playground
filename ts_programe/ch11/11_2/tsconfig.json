@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
+    "target": "ES2020",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    // "strictNullChecks": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "rootDir": ".",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "noImplicitAny": false,  // 允许隐式的any类型
+    "strictBindCallApply": false,
+    "lib": ["dom"]
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules", "dist"]
+}

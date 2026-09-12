@@ -1,0 +1,67 @@
+╭─── Claude Code v2.1.220 ─────────────────────────────────────────────────────╮
+│                                                  │ Tips for getting started  │
+│                   Welcome back!                  │ Run /init to create a CL… │
+│                                                  │ ───────────────────────── │
+│                      ▐▛███▜▌                     │ What's new                │
+│                     ▝▜█████▛▘                    │ Bug fixes and reliabilit… │
+│                       ▘▘ ▝▝                      │ Added Claude Opus 5 (`cl… │
+│                                                  │ Added `sandbox.network.s… │
+│      deepseek-v4-flash · API Usage Billing       │ /release-notes for more   │
+│   ~/mycode/ts_playground/ts_programe/ch11/11_2   │                           │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+
+❯ @utils.js 为什么提示 'console' is not defined.                                
+  ⎿  Read utils.js (9 lines)
+
+  Thought for 19s, read 4 files, listed 2 directories, ran 5 shell commands (ctrl+o to expand)
+
+⏺ 结论：这是 ESLint 报的错，不是 TypeScript
+
+  no-undef 是 ESLint 的规则，TS 编译器不会说"is not defined"（它只会说 Cannot 
+  find name 'console'）。我实际跑了一遍确认：
+
+  $ npx eslint ch11/11_2/utils.js
+    8:1  error    'console' is not defined      no-undef
+    8:1  warning  Unexpected console statement  no-console
+
+  npx tsc --noEmit -p tsconfig.json 只报了 moduleResolution=node10
+  的废弃警告，没有 console 的问题 —— 因为 ch11/11_2/tsconfig.json:19 设了 "lib":
+  ["dom"]，DOM lib 里就声明了 console。
+
+  为什么 ESLint 认为 console 未定义
+
+  两个原因叠加：
+
+  1. 这个 .js 文件根本没被忽略掉。 eslint.config.mjs:8 写的是 ignores: ['*.js', 
+  '*.mjs']。扁平配置里，不含 /
+  的模式只匹配配置文件所在的那一层目录，不递归。实测确认：根目录的 index.js
+  被忽略了，但 ch11/11_2/utils.js 会被照常 lint。
+  2. ESLint 没有配置任何环境全局变量。 配置里没有
+  languageOptions.globals，globals 包也没装（require.resolve('globals')
+  直接失败）。所以 no-undef 眼里 console 是个未声明的变量。
+
+  为什么 .ts 文件同样写 console.log 却不报
+
+  tseslint.configs.recommended 内部对 .ts/.tsx 关闭了
+  no-undef（因为类型检查已经覆盖了这件事）。我建了个 __noundef_check.ts
+  验证，只报 no-console 和 prettier 格式问题，没有
+  no-undef。所以这个问题只出现在 .js 文件上。
+
+  三种修法
+
+  A. 按原意把忽略模式改对（推荐）——你现在 11_2/tsconfig.json 已经开了 allowJs: 
+  true + checkJs: true，JS 由 tsc 负责类型检查，ESLint 不必再管：
+
+  ignores: ['dist/', 'node_modules/', '**/*.js', '**/*.mjs'],
+
+  B. 想让 ESLint 也检查 JS——补全局变量：npm i -D globals，然后
+
+  languageOptions: { globals: { ...globals.node } },  // 或 globals.browser
+
+  C. 只解决这一个文件——在 utils.js 顶部加 /* global console 
+  */（临时手段，下次新建 js 文件还会遇到）。
+
+  要我直接改成 A 吗？改动只有一行。
+
+✻ Churned for 24s
