@@ -56,7 +56,7 @@ type UserMouseEvent = {
   target: HTMLElement
 }
 
-type UserEvent = UserTextEvent | UserMouseEvent
+export type UserEvent = UserTextEvent | UserMouseEvent  // export 导出类型 变成模块模式，其他文件不能直接使用，只能通过导入来使用。
 
 function handleUserEvent(event: UserEvent) {
   // 处理事件

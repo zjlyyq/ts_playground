@@ -12,6 +12,10 @@ type APIResponse = {
   }
 }
 
+/**
+ * 获取 API 响应
+ * @returns 返回 APIResponse 类型的 Promise
+ */
 function getAPIResponse(): Promise<APIResponse> {
   return Promise.resolve({
     user: {

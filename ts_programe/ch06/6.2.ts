@@ -15,3 +15,4 @@ let nextDay = {
 }
 
 nextDay.Mon // 'Tue'
+// let w: Width // 
